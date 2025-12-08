@@ -1,0 +1,19 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Parler;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ParlerFactory extends Factory
+{
+    protected $model = Parler::class;
+
+    public function definition()
+    {
+        return [
+            'region_id' => 1, 
+            'langue_id' => 1,
+        ];
+    }
+}

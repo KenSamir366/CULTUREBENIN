@@ -1,0 +1,29 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Contenu;
+use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ContenuFactory extends Factory
+{
+    protected $model = Contenu::class;
+
+    public function definition()
+    {
+        return [
+            'titre' => $this->faker->sentence(),
+            'typecontenu_id' => 1,
+            'texte' => $this->faker->paragraph(),
+            'date_creation' => now(),
+            'statut' => 'publie',
+            'auteur_id' => User::factory(),
+            'parent_id' => null,
+            'region_id' => 1,
+            'langue_id' => 1,
+            'moderateur_id' => 1,
+            'date_validation' => now(),
+        ];
+    }
+}

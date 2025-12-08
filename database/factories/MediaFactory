@@ -1,0 +1,22 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Media;
+use App\Models\Contenu;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class MediaFactory extends Factory
+{
+    protected $model = Media::class;
+
+    public function definition()
+    {
+        return [
+            'contenu_id' => Contenu::factory(),
+            'typemedias_id' => 1,
+            'chemin' => 'images/test-' . $this->faker->numberBetween(1, 10) . '.jpg',
+            'description' => $this->faker->sentence(),
+        ];
+    }
+}
