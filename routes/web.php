@@ -220,3 +220,8 @@ use App\Http\Controllers\PaiementController;
 Route::get('/paiement', [PaiementController::class, 'index'])->name('paiement.form');
 Route::post('/paiement/traiter', [PaiementController::class, 'traiterPaiement'])->name('paiement.traiter');
 Route::get('/paiement/retour', [PaiementController::class, 'retour'])->name('paiement.retour');
+
+// À la fin du fichier, avant la fermeture ?>
+Route::get('/health', function() {
+    return response()->json(['status' => 'ok', 'timestamp' => now()]);
+});
