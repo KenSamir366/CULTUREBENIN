@@ -212,7 +212,7 @@ Route::get('/transaction/{id}/status', [PaymentController::class, 'checkStatus']
 
 // web.php
 Route::post('/payer', [PaiementController::class, 'payer'])->name('payer');
-Route::get('/retour-paiement', [PaiementController::class, 'retour'])->name('paiement.retour');
+
 
 use App\Http\Controllers\PaiementController;
 
