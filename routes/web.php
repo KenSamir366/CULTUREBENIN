@@ -15,7 +15,7 @@ use App\Http\Controllers\TypemediaController;
 use App\Http\Controllers\PaymentController;
 
 // ----------------- PAGE D'ACCUEIL -----------------
-Route::get('/accueil', function() {
+Route::get('/', function() {
     return view('front.accueil');
 });
 Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
@@ -221,9 +221,7 @@ Route::get('/paiement', [PaiementController::class, 'index'])->name('paiement.fo
 Route::post('/paiement/traiter', [PaiementController::class, 'traiterPaiement'])->name('paiement.traiter');
 Route::get('/paiement/retour', [PaiementController::class, 'retour'])->name('paiement.retour');
 
-Route::get('/health', function() {
-    return response()->json(['status' => 'ok']);
-});
+
 
 Route::get('/test-db', function() {
     try {
