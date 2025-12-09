@@ -233,4 +233,8 @@ Route::get('/test-db', function() {
     }
 });
 
+// Route test
+Route::get('/test-simple', function() {
+    return 'Le site fonctionne !';
+});
 ?>
