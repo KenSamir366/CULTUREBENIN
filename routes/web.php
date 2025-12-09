@@ -221,3 +221,4 @@ Route::get('/paiement', [PaiementController::class, 'index'])->name('paiement.fo
 Route::post('/paiement/traiter', [PaiementController::class, 'traiterPaiement'])->name('paiement.traiter');
 Route::get('/paiement/retour', [PaiementController::class, 'retour'])->name('paiement.retour');
 
+?>
