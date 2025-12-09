@@ -14,10 +14,13 @@ use App\Http\Controllers\TypecontenuController;
 use App\Http\Controllers\TypemediaController;
 use App\Http\Controllers\PaymentController;
 
+// Ajoutez cette route en haut du fichier routes/web.php
+Route::get('/health', function() {
+    return response()->json(['status' => 'healthy', 'timestamp' => now()]);
+});
 // ----------------- PAGE D'ACCUEIL -----------------
-// ----------------- PAGE D'ACCUEIL -----------------
-Route::get('/', function() {
-    return view('welcome');  // Vue Laravel par défaut
+Route::get('/', function(){
+    return view('front.accueil');
 });
 Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
 
