@@ -15,8 +15,9 @@ use App\Http\Controllers\TypemediaController;
 use App\Http\Controllers\PaymentController;
 
 // ----------------- PAGE D'ACCUEIL -----------------
+// ----------------- PAGE D'ACCUEIL -----------------
 Route::get('/', function() {
-    return view('front.accueil');
+    return view('welcome');  // Vue Laravel par défaut
 });
 Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
 
