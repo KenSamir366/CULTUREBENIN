@@ -15,7 +15,7 @@ use App\Http\Controllers\TypemediaController;
 use App\Http\Controllers\PaymentController;
 
 // ----------------- PAGE D'ACCUEIL -----------------
-Route::get('/', function() {
+Route::get('/accueil', function() {
     return view('front.accueil');
 });
 Route::get('/dashboard', [PageController::class, 'index'])->name('dashboard');
