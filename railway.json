@@ -9,3 +9,10 @@
     "healthcheckTimeout": 300
   }
 }
+
+{
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "composer install --no-dev --optimize-autoloader && php artisan storage:link && chmod -R 775 storage bootstrap/cache"
+  }
+}
