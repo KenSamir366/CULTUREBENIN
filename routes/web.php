@@ -202,42 +202,14 @@ Route::post('/logout', function () {
 // Route::resource('users', UserController::class); // DÉJÀ DÉFINI LIGNES 10-16
 // Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard'); // DashboardController n'existe pas
 
-// Paiement
-Route::get('/paiement/{amount}', [PaymentController::class, 'showPaymentForm'])->name('payment.form');
-Route::post('/paiement/create', [PaymentController::class, 'createTransaction'])->name('payment.create');
-Route::get('/paiement/success', [PaymentController::class, 'success'])->name('payment.success');
-Route::get('/paiement/cancel', [PaymentController::class, 'cancel'])->name('payment.cancel');
 
-// Webhook (POST uniquement)
-Route::post('/fedapay/webhook', [PaymentController::class, 'handleCallback'])->name('payment.callback');
-
-// Vérification de statut (pour AJAX)
-Route::get('/transaction/{id}/status', [PaymentController::class, 'checkStatus']);
-
-// web.php
-Route::post('/payer', [PaiementController::class, 'payer'])->name('payer');
-
-
-use App\Http\Controllers\PaiementController;
-
-// Paiement routes
-Route::get('/paiement', [PaiementController::class, 'index'])->name('paiement.form');
-Route::post('/paiement/traiter', [PaiementController::class, 'traiterPaiement'])->name('paiement.traiter');
-Route::get('/paiement/retour', [PaiementController::class, 'retour'])->name('paiement.retour');
-
-
-
-Route::get('/test-db', function() {
-    try {
-        DB::connection()->getPdo();
-        return 'DB connected successfully!';
-    } catch (\Exception $e) {
-        return 'DB connection failed: ' . $e->getMessage();
-    }
+Route::get('/health', function () {
+    return response()->json(['status' => 'ok']);
 });
 
-// Route test
-Route::get('/test-simple', function() {
-    return 'Le site fonctionne !';
-});
+
+
+
+
+
 ?>
