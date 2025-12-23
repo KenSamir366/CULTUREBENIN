@@ -45,6 +45,10 @@
     
     <!-- jsvectormap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css" />
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
     
     <style>
       :root {
