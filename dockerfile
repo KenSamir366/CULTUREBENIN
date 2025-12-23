@@ -1,7 +1,7 @@
-# Étape 1 : Image PHP avec FPM
+# ---------- IMAGE DE BASE ----------
 FROM php:8.2-fpm
 
-# Dépendances système
+# ---------- DÉPENDANCES SYSTÈME ----------
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -19,17 +19,18 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Node.js 18 LTS
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
-    && apt-get install -y nodejs
+# ---------- NODE.JS 20 LTS ----------
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs \
+    && npm install -g npm@11.7.0  # mise à jour npm si nécessaire
 
-# Composer depuis l'image officielle
+# ---------- COMPOSER ----------
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Définir le dossier de travail
+# ---------- WORKDIR ----------
 WORKDIR /var/www
 
-# Copier Composer et installer les dépendances PHP sans scripts
+# ---------- COMPOSER INSTALL ----------
 COPY composer.json composer.lock ./
 RUN composer install \
     --no-dev \
@@ -38,26 +39,28 @@ RUN composer install \
     --no-interaction \
     --no-scripts
 
-# Copier package.json et installer NPM
+# ---------- NPM INSTALL ----------
 COPY package*.json ./
 RUN npm install
-RUN chmod -R +x node_modules/.bin  # Pour éviter les problèmes de permissions avec Vite
 
-# Copier tout le code source
+# ---------- FIX PERMISSIONS POUR VITE ----------
+RUN chmod -R +x node_modules/.bin
+
+# ---------- COPIE DU PROJET ----------
 COPY . .
 
-# Build des assets front-end
-RUN npm run build  # ou utiliser "npx vite build" si nécessaire
+# ---------- BUILD DES ASSETS FRONT-END ----------
+RUN npm run build
 
-# Optimisation Composer
+# ---------- OPTIMISATION COMPOSER ----------
 RUN composer dump-autoload --optimize
 
-# Permissions Laravel
+# ---------- PERMISSIONS LARAVEL ----------
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
 
-# Exposer le port 8000
+# ---------- PORT ----------
 EXPOSE 8000
 
-# Lancer le serveur Laravel
+# ---------- CMD ----------
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
