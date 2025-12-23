@@ -1,8 +1,6 @@
 FROM php:8.2-fpm
 
-# -------------------------
 # Dépendances système
-# -------------------------
 RUN apt-get update && apt-get install -y \
     git \
     curl \
@@ -16,77 +14,45 @@ RUN apt-get update && apt-get install -y \
     ca-certificates \
     gnupg \
     && docker-php-ext-configure zip \
-    && docker-php-ext-install \
-        pdo_mysql \
-        mbstring \
-        exif \
-        pcntl \
-        bcmath \
-        gd \
-        zip \
+    && docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd zip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# -------------------------
-# Installer Node.js LTS (18)
-# -------------------------
+# Node.js 18 LTS
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
-# Vérification
-RUN node -v && npm -v
-
-# -------------------------
-# Installer Composer
-# -------------------------
+# Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# -------------------------
-# Répertoire de travail
-# -------------------------
 WORKDIR /var/www
 
-# -------------------------
-# Composer (cache optimisé)
-# -------------------------
+# Composer (SANS scripts)
 COPY composer.json composer.lock ./
-RUN composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction
+RUN composer install \
+    --no-dev \
+    --prefer-dist \
+    --optimize-autoloader \
+    --no-interaction \
+    --no-scripts
 
-# -------------------------
-# NPM (cache optimisé)
-# -------------------------
+# NPM
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# -------------------------
-# Copier l'application
-# -------------------------
+# Copier l’application
 COPY . .
 
-# -------------------------
 # Build assets
-# -------------------------
 RUN npm run build
 
-# -------------------------
+# Finaliser Composer
+RUN composer dump-autoload --optimize
+
 # Permissions Laravel
-# -------------------------
-RUN mkdir -p storage/logs \
-    storage/framework/cache/data \
-    storage/framework/sessions \
-    storage/framework/views \
-    bootstrap/cache \
-    && chown -R www-data:www-data /var/www \
+RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
 
-# -------------------------
-# Générer clé Laravel (optionnel en prod)
-# -------------------------
-RUN php artisan key:generate --force
-
-# -------------------------
-# Port
-# -------------------------
 EXPOSE 8000
 
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
