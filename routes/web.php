@@ -71,14 +71,13 @@ Route::get('/typecontenus', [TypecontenuController::class, 'indexWeb'])->name('t
 Route::get('/typemedias', [TypemediaController::class, 'index'])->name('typemedias.index');
 
 // ----------------- RÔLES WEB -----------------
-
-    Route::get('/', [RoleController::class, 'index'])->name('index');
-    Route::get('/create', [RoleController::class, 'create'])->name('create');
-    Route::post('/', [RoleController::class, 'store'])->name('store');
-    Route::get('/{role}', [RoleController::class, 'show'])->name('show');
-    Route::get('/{role}/edit', [RoleController::class, 'edit'])->name('edit');
-    Route::put('/{role}', [RoleController::class, 'update'])->name('update');
-    Route::delete('/{role}', [RoleController::class, 'destroy'])->name('destroy');
+Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
+Route::get('/roles/create', [RoleController::class, 'create'])->name('roles.create');
+Route::post('/roles', [RoleController::class, 'store'])->name('roles.store');
+Route::get('/roles/{role}', [RoleController::class, 'show'])->name('roles.show');
+Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+Route::put('/roles/{role}', [RoleController::class, 'update'])->name('roles.update');
+Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
 
 // ----------------- LANGUES WEB -----------------
@@ -91,28 +90,24 @@ Route::put('/langues/{id}', [LangueController::class, 'update'])->name('langues.
 Route::delete('/langues/{id}', [LangueController::class, 'destroy'])->name('langues.destroy');
 
 // ----------------- RÉGIONS WEB -----------------
-// ----------------- RÉGIONS WEB -----------------
-// ----------------- RÉGIONS WEB -----------------
-
-    Route::get('/', [RegionController::class, 'index'])->name('index');
-    Route::get('/create', [RegionController::class, 'create'])->name('create');
-    Route::post('/', [RegionController::class, 'store'])->name('store');
-    Route::get('/{region}', [RegionController::class, 'show'])->name('show');
-    Route::get('/{region}/edit', [RegionController::class, 'edit'])->name('edit');
-    Route::put('/{region}', [RegionController::class, 'update'])->name('update');
-    Route::delete('/{region}', [RegionController::class, 'destroy'])->name('destroy');
+Route::get('/regions', [RegionController::class, 'index'])->name('regions.index');
+Route::get('/regions/create', [RegionController::class, 'create'])->name('regions.create');
+Route::post('/regions', [RegionController::class, 'store'])->name('regions.store');
+Route::get('/regions/{region}', [RegionController::class, 'show'])->name('regions.show');
+Route::get('/regions/{region}/edit', [RegionController::class, 'edit'])->name('regions.edit');
+Route::put('/regions/{region}', [RegionController::class, 'update'])->name('regions.update');
+Route::delete('/regions/{region}', [RegionController::class, 'destroy'])->name('regions.destroy');
 
 
 
 // ----------------- PARLERS WEB -----------------
-
-    Route::get('/', [ParlerController::class, 'index'])->name('index');
-    Route::get('/create', [ParlerController::class, 'create'])->name('create');
-    Route::post('/', [ParlerController::class, 'store'])->name('store');
-    Route::get('/{parler}', [ParlerController::class, 'show'])->name('show');
-    Route::get('/{parler}/edit', [ParlerController::class, 'edit'])->name('edit');
-    Route::put('/{parler}', [ParlerController::class, 'update'])->name('update');
-    Route::delete('/{parler}', [ParlerController::class, 'destroy'])->name('destroy');
+Route::get('/parlers', [ParlerController::class, 'index'])->name('parlers.index');
+Route::get('/parlers/create', [ParlerController::class, 'create'])->name('parlers.create');
+Route::post('/parlers', [ParlerController::class, 'store'])->name('parlers.store');
+Route::get('/parlers/{parler}', [ParlerController::class, 'show'])->name('parlers.show');
+Route::get('/parlers/{parler}/edit', [ParlerController::class, 'edit'])->name('parlers.edit');
+Route::put('/parlers/{parler}', [ParlerController::class, 'update'])->name('parlers.update');
+Route::delete('/parlers/{parler}', [ParlerController::class, 'destroy'])->name('parlers.destroy');
 
 
 // ----------------- API ROUTES -----------------
