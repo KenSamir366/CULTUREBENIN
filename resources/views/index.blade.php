@@ -444,7 +444,7 @@
 
               <!-- Gestion des contenus -->
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{route('contenus.index')}}" class="nav-link">
                   <i class="nav-icon bi bi-file-earmark-richtext"></i>
                   <p>GESTION DES CONTENUS</p>
                   <i class="nav-arrow bi bi-chevron-right"></i>
