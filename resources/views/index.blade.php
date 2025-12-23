@@ -46,8 +46,9 @@
     <!-- jsvectormap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsvectormap@1.5.3/dist/css/jsvectormap.min.css" />
 
-    <link rel="stylesheet" href="/build/assets/app-4vPgUneo.css">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
     
     <style>
       :root {
