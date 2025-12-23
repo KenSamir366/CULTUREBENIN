@@ -1,3 +1,4 @@
+# Étape 1 : Image PHP avec FPM
 FROM php:8.2-fpm
 
 # Dépendances système
@@ -22,12 +23,13 @@ RUN apt-get update && apt-get install -y \
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs
 
-# Composer
+# Composer depuis l'image officielle
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Définir le dossier de travail
 WORKDIR /var/www
 
-# Composer (SANS scripts)
+# Copier Composer et installer les dépendances PHP sans scripts
 COPY composer.json composer.lock ./
 RUN composer install \
     --no-dev \
@@ -36,23 +38,26 @@ RUN composer install \
     --no-interaction \
     --no-scripts
 
-# NPM
-COPY package.json package-lock.json ./
-RUN npm ci
+# Copier package.json et installer NPM
+COPY package*.json ./
+RUN npm install
+RUN chmod -R +x node_modules/.bin  # Pour éviter les problèmes de permissions avec Vite
 
-# Copier l’application
+# Copier tout le code source
 COPY . .
 
-# Build assets
-RUN npm run build
+# Build des assets front-end
+RUN npm run build  # ou utiliser "npx vite build" si nécessaire
 
-# Finaliser Composer
+# Optimisation Composer
 RUN composer dump-autoload --optimize
 
 # Permissions Laravel
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
 
+# Exposer le port 8000
 EXPOSE 8000
 
+# Lancer le serveur Laravel
 CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
