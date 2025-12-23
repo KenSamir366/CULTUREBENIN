@@ -34,13 +34,13 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 COPY package*.json ./
 
 # Installer les dépendances Node.js
-#RUN npm ci --only=production
+RUN npm ci --only=production
 
 # Copier le reste des fichiers de l'application
 COPY . .
 
 # Construire les assets
-#RUN npm run build
+RUN npm run build
 
 # Copier le fichier .env.example vers .env si .env n'existe pas
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
